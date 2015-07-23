@@ -1,0 +1,12 @@
+<div ng-controller="nodeController">
+    <table ng-repeat="result in results">
+        <tr><td>{{result.id}}</td></tr>
+    </table>
+</div>
+
+<div ng-controller="nodeController">
+    <form>
+        <input type="text" name="node_name" ng-model="node_name">
+        <button ng-click="createNode()">Create node</button>
+    </form>
+</div>
