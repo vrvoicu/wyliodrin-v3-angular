@@ -1,0 +1,7 @@
+<div ng-controller="blockController" data-ng-init="getAllBlocks()">
+    <table ng-repeat="entity in entities">
+        <tr>
+            <td><a ng-id="{{entity.id}}" ng-href="#/blocks/adminGetBlock/{{entity.id}}">{{entity.category.name}}</a></td>
+            <td><button ng-click="deleteBlock(entity.id)">Delete</button></td></tr>
+    </table>
+</div>

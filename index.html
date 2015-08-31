@@ -19,11 +19,20 @@
         <li><a href="#/login">login</a></li>
         <li><a href="#/social_login">social_login</a></li>
 
-        <li><a href="#/users/all">Show all users</a></li>
-
         <li><a href="#/nodes/create">Create node</a></li>
         <li><a href="#/nodes/script">Set node script</a></li>
 
+        <li><a href="#/projects/create">Create project</a></li>
+        <li><a href="#/projects/show">Show user projects</a></li>
+        <br/><br/>
+        <li><a href="#/blocks/adminCreateBlock">Create block</a></li>
+        <li><a href="#/blocks/adminCreateCategory">Create block category</a></li>
+        <li><a href="#/blocks/adminCreateSubcategory">Create block subcategory</a></li>
+        <li><a href="#/blocks/adminGetAllBlocks">Show blocks</a></li>
+        <li><a href="#/blocks/adminGetCategories">Show blocks categories</a></li>
+        <li><a href="#/blocks/adminGetSubcategories">Show blocks subcategories</a></li>
+        <br/><br/>
+        <li><a href="#/users/adminGetAllUsers">Show users</a></li>
 
         <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
     </ul>
@@ -33,7 +42,10 @@
 
 </body>
 <script type="application/javascript" src="javascript/app.js"></script>
-<script type="application/javascript" src="javascript/userControllerAndService.js"></script>
-<script type="application/javascript" src="javascript/nodeControllerAndService.js"></script>
+<script type="application/javascript" src="javascript/gloabalVariables.js"></script>
+<script type="application/javascript" src="controllersAndServices/userControllerAndService.js"></script>
+<script type="application/javascript" src="controllersAndServices/nodeControllerAndService.js"></script>
+<script type="application/javascript" src="controllersAndServices/projectControllerAndService.js"></script>
+<script type="application/javascript" src="controllersAndServices/blockControllerAndService.js"></script>
 
 </html>

@@ -1,4 +1,13 @@
 <form ng-controller="nodeController" ng-submit="createNode()">
-    Name: <input type="text" name="name" ng-model="nodeName"/><br/>
+
+    Name:
+    <input type="text" name="nodaName" ng-model="nodeName"/><br/>
+
+    Node Type:
+    <select name = "nodeType" ng-model = "nodeType" data-ng-init = "getNodeType()">
+        <option value="">Select type</option>
+        <option ng-repeat="nodeType in nodeTypes" value="{{nodeType.id}}">{{nodeType.name}}</option>
+    </select><br/><br/>
+
     <button type="submit" name="createNode" class="btn btn-lg btn-block btn-primary">Create node</button>
 </form>

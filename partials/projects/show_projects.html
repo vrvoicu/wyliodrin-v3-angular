@@ -1,0 +1,10 @@
+<div ng-controller="projectController" data-ng-init = "showProjectsInit()">
+    <table ng-repeat="project in projects">
+        <tr>
+            <td>{{project.id}}</td>
+            <td>{{project.name}}</td>
+            <td>{{project.public}}</td>
+            <td><button ng-click="deleteProjectById(project.id)">Delete</button></td></tr>
+    </table>
+    <button ng-click = "deleteAllProjects()">Delete all</button>
+</div>

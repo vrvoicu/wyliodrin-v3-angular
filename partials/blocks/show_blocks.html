@@ -1,0 +1,11 @@
+<div ng-controller="blockController" data-ng-init = "getAllBlocks()">
+    <table ng-repeat="block in blocks">
+        <tr>
+            <td>{{block.id}}</td>
+            <td>{{block.category}}</td>
+            <td>{{block.subcategory}}</td>
+            <td><a href="{{block.url}}">Show</a></td>
+            <td><button ng-click="deleteBlockById(project.id)">Delete</button></td></tr>
+    </table>
+    <button ng-click = "deleteAllBlocks()">Delete all</button>
+</div>

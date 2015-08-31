@@ -1,0 +1,21 @@
+<form ng-controller = "blockController" ng-submit = "createBlock()">
+
+    Category:
+    <select name = "blockCategory" ng-model = "blockCategory" data-ng-init = "getBlockCategories()">
+        <option value="">Select category</option>
+        <option ng-repeat="blockCategory in blockCategories" value="{{blockCategory.id}}">{{blockCategory.name}}</option>
+    </select><br/><br/>
+
+    Subcategory:
+    <select name = "blockSubcategory" ng-model = "blockSubcategory" data-ng-init = "getBlockSubcategories()">
+        <option value="">Select subcategory</option>
+        <option ng-repeat="blockSubcategory in blockSubcategories" value="{{blockSubcategory.id}}">{{blockSubcategory.name}}</option>
+    </select><br/><br/>
+
+    Content:
+    <textarea name = "blockContent" ng-model = "blockContent"></textarea><br/><br/>
+
+    <input type = "checkbox" name = "blockPrivacy" ng-model = "blockPrivacy"/> Private <br/><br/>
+
+    <button type="submit" name="createBlock" class="btn btn-lg btn-block btn-primary">Create block</button>
+</form>

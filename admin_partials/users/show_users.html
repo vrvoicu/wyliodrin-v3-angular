@@ -1,0 +1,7 @@
+<div ng-controller="userController" data-ng-init="adminGetAllUsers()">
+    <table ng-repeat="entity in entities">
+        <tr>
+            <td><a ng-id="{{entity.id}}" ng-href="#/users/adminGetUser/{{entity.id}}">{{entity.name}}</a></td>
+            <td><button ng-click="adminDeleteUser(entity.id)">Delete</button></td></tr>
+    </table>
+</div>

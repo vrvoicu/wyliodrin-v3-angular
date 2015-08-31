@@ -1,10 +1,20 @@
 /**
  * Created by victor on 23.07.2015.
  */
-module.controller('userController', function ($scope, $auth, userService) {
+module.controller('userController', function ($scope, $auth, userService, $routeParams) {
 
         $scope.register = function () {
-            userService.requestRegisterUser($scope.username, $scope.password, $scope.email, $scope.name);
+
+            var promise = userService.requestRegisterUser($scope.username, $scope.password, $scope.email, $scope.name);
+            
+            /*promise.then(
+                function (response) {
+                    $auth.setToken(response.data.authToken, true);
+                },
+                function(error){
+                    handleErrorCallback(error);
+                }
+            )*/
         }
 
         $scope.authenticate = function(provider) {
@@ -16,49 +26,102 @@ module.controller('userController', function ($scope, $auth, userService) {
             alert($auth.isAuthenticated());
         };
 
-        $scope.deleteUser= function (username) {
+        /*$scope.deleteUser= function (username) {
             userService.requestDeleteUser(username);
-        }
+        }*/
 
-        var init = function () {
-            userService.requestGetAllUsers($scope);
-            /*if ($routeParams.ticketId) {
-                $scope.ticketSelected($routeParams.ticketId);
-            }*/
-        };
+        $scope.adminGetUser = function(){
 
-        // fire on controller loaded
-        init();
+            var userId = $routeParams.userId;
+
+            var promise = userService.requestAdminGetUser(userId);
+
+            promise.then(
+                function (response) {
+
+                    var data = jQuery.parseJSON(JSON.stringify(response.data));
+                    $scope.entity = data;
+
+                }
+            )
+
+        },
+
+        $scope.adminGetAllUsers = function(){
+
+            var promise = userService.requestAdminGetAllUsers();
+
+            promise.then(
+                function (response) {
+
+                    $scope.entities = new Array();
+                    if(response.status == 200){
+                        var data = jQuery.parseJSON(JSON.stringify(response.data));
+                        $scope.entities = data;
+                    }
+
+                }
+            )
+        },
+
+            $scope.adminDeleteUser = function(userId){
+
+                var userId = userId;
+
+                var promise = userService.requestAdminDeleteUser(userId);
+
+                promise.then(
+                    function(response){
+                        $scope.adminGetAllUsers();
+                    },
+                    function(error){
+                        handleErrorCallback(error);
+                    }
+                )
+
+            }
     }
 );
 
 module.service('userService', ['$auth', '$http', function ($auth, $http) {
 
-    var address='192.168.0.17';
-
     var service = {
-        users: [],
+
+        requestAdminDeleteUser: function (userId) {
+            return $http({
+                url : "http://"+address+"/users/adminDeleteUser/"+userId,
+                method: 'DELETE'
+            })
+        },
+
+        requestAdminGetUser: function(userId){
+            return $http({
+                url : "http://"+address+"/users/adminGetUser/"+userId,
+                method: 'GET'
+            })
+        },
+
+        requestAdminGetAllUsers: function(){
+            return $http({
+                url : 'http://'+address+'/users/adminGetAllUsers',
+                method: 'GET'
+            })
+        },
 
         requestRegisterUser: function(username, password, email, name){
-            alert("a")
-            $auth.signup({
-                url : 'http://'+address+':8080/users/register',
+
+            return $auth.signup({
                 username: username,
                 password: password,
                 email: email,
                 name: name
             })
-                .then(function(response){
 
-                })
-                .catch(function(response){
-
-                })
         },
 
         requestDeleteUser: function(username){
             $http({
-                url: 'http://'+address+':8080/users/delete',
+                url: 'http://'+address+'/users/delete',
                 method: 'POST',
                 data: { username: username }
             })
@@ -69,7 +132,7 @@ module.service('userService', ['$auth', '$http', function ($auth, $http) {
                     if(response.data.status==403)
                         alert(JSON.stringify(response));
                 });
-        }
+        },
 
         socialLogin: function (provider) {
             $auth.authenticate(provider)
@@ -85,7 +148,7 @@ module.service('userService', ['$auth', '$http', function ($auth, $http) {
 
         requestGetAllUsers: function (scope) {
             $http({
-                url: 'http://'+address+':8080/users/all',
+                url: 'http://'+address+'/users/all',
                 method: 'POST',
                 data: {}
             })
@@ -116,66 +179,6 @@ module.service('userService', ['$auth', '$http', function ($auth, $http) {
                     alert("eror");
                 })
         }
-        /*addNode: function ( node ) {
-         service.nodes.push( node );
-         $rootScope.$broadcast( 'nodes.update' );
-         },
-         requestCreateNode: function(){
-         alert($auth.isAuthenticated());
-         $http({
-         url: 'http://localhost:8080/nodes/create'
-         })
-         .then(function (response) {
-         alert(JSON.stringify(response));
-         })
-         .catch(function (response) {
-         if(response.data.status==403)
-         alert(JSON.stringify(response));
-         });
-         },
-         requestDeleteNode: function(nodeId){
-         $http({
-         url: 'nodes/deleteNode',
-         nodeId: nodeId
-         })
-         .then(function(response){
-
-         })
-         .catch(function(response){
-
-         });
-         },
-         requestSetNodePrivacy: function(nodeId){
-         $http({
-         url: 'nodes/setNodePrivacy',
-         nodeId: nodeId
-         });
-         },
-         requestGetAllNodes: function(){
-
-         },
-         requestGetUserDefinedNodes: function(){
-         $http({
-         url: 'nodes/all'
-         })
-         .then(function(response){
-         $.each(data, function () {
-         var obj = data;
-         console.log(obj);
-         $scope.results.push(
-         {
-         "id": obj["obj_id"],
-         "text": obj["text"]
-         }
-         );
-
-
-         });
-         })
-         .catch(function(response){
-
-         })
-         }*/
     }
     return service;
 }]);

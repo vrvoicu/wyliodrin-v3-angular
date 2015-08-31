@@ -1,0 +1,28 @@
+<div ng-controller="userController" data-ng-init="adminGetUser()">
+    <table>
+        <tr>
+            <td>Name: {{entity.name}}</td>
+        </tr>
+        <tr>
+            <td>Username: {{entity.username}}</td>
+        </tr>
+        <tr>
+            <td>
+                <table ng-repeat="subentity in entity.accounts">
+                    <tr>
+                        <td>{{subentity.type}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table ng-repeat="subsubentity in subentity.userEmails">
+                                <tr>
+                                    <td>{{subsubentity.email}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>a

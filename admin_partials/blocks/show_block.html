@@ -1,0 +1,25 @@
+<form ng-controller = "blockController" data-ng-init="getBlock()">
+
+    Category:
+    <select name = "blockCategory" ng-model = "blockCategory" data-ng-init = "getBlockCategories()">
+        <option value="">Select category</option>
+        <option ng-repeat="entity in entities" value="{{entity.id}}" ng-selected="{{entity.id == masterEntity.category.id}}">
+            {{entity.name}}
+        </option>
+    </select><br/><br/>
+
+    Subcategory:
+    <select name = "blockSubcategory" ng-model = "blockSubcategory" data-ng-init = "getBlockSubcategories()">
+        <option value="">Select subcategory</option>
+        <option ng-repeat="entity in entities" value="{{entity.id}}" ng-selected="{{entity.id == masterEntity.subcategory.id}}">
+            {{entity.name}}
+        </option>
+    </select><br/><br/>
+
+    Content:
+    <textarea name = "blockContent" ng-model = "blockContent">{{masterEntity.content}}</textarea><br/><br/>
+
+    <input type = "checkbox" name = "blockPrivacy" ng-model = "blockPrivacy" ng-checked="{{masterEntity.private? 'checked': ''}}"/> Private <br/><br/>
+
+    <button type="submit" name="createBlock" class="btn btn-lg btn-block btn-primary">Create block</button>
+</form>
