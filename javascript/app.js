@@ -57,7 +57,7 @@ var module = angular.module("wyliodrin_v3", ['satellizer', 'ngRoute'])
             })
 
             //projects
-            .when('/projects/create', {
+            .when('/projects/createProject', {
                 templateUrl: 'partials/projects/create_project.html',
                 controller: 'projectController',
             })
