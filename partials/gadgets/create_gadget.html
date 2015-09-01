@@ -1,18 +1,19 @@
-<form ng-controller = "gadgetController" ng-submit = "createGadget()">
+<form ng-controller="gadgetController" ng-submit="createGadget()">
 
     Name:
-    <input type = "text" name = "gadgetName" ng-model = "gadgetName"/><br/>
+    <input type="text" name="gadgetName" ng-model="gadgetName"/><br/>
 
     Type:
-    <select name = "gadgetType" ng-model = "gadgetType" data-ng-init = "getGadgetTypes()">
+    <select name="gadgetType" ng-model="gadgetType" data-ng-init="getGadgetTypes()">
         <option value="">Select type</option>
         <option ng-repeat="gadgetType in gadgetTypes" value="{{gadgetType.id}}">{{gadgetType.name}}</option>
     </select><br/><br/>
 
     Category:
-    <select name = "gadgetCategory" ng-model = "gadgetCategory" data-ng-init = "getGadgetCategories()">
+    <select name="gadgetCategory" ng-model="gadgetCategory" data-ng-init="getGadgetCategories()">
         <option value="">Select category</option>
-        <option ng-repeat="gadgetCategory in gadgetCategories" value="{{gadgetCategory.id}}">{{gadgetCategory.name}}</option>
+        <option ng-repeat="gadgetCategory in gadgetCategories" value="{{gadgetCategory.id}}">{{gadgetCategory.name}}
+        </option>
     </select><br/><br/>
 
     <button type="submit" name="createGadget" class="btn btn-lg btn-block btn-primary">Create gadget</button>

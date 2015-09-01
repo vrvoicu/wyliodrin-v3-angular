@@ -18,13 +18,24 @@
         <li><a href="#/register">register</a></li>
         <li><a href="#/login">login</a></li>
         <li><a href="#/social_login">social_login</a></li>
-
-        <li><a href="#/nodes/create">Create node</a></li>
-        <li><a href="#/nodes/script">Set node script</a></li>
-
-        <li><a href="#/projects/create">Create project</a></li>
-        <li><a href="#/projects/show">Show user projects</a></li>
         <br/><br/>
+        User
+        <li><a href="#/nodes/createNode">Create node</a></li>
+        <li><a href="#/nodes/getNodes">Show nodes</a></li>
+        <br/>
+        Admin
+        <li><a href="#/nodes/adminCreateNodeType">Create node type</a></li>
+        <li><a href="#/nodes/adminGetNodeTypes">Show node types</a></li>
+        <li><a href="#/nodes/adminGetNodes">Show nodes</a></li>
+        <br/><br/>
+        User
+        <li><a href="#/projects/createProject">Create project</a></li>
+        <li><a href="#/projects/getProjects">Show projects</a></li>
+        <br/>
+        Admin
+        <li><a href="#/projects/adminGetProjects">Show projects</a></li>
+        <br/><br/>
+        Admin
         <li><a href="#/blocks/adminCreateBlock">Create block</a></li>
         <li><a href="#/blocks/adminCreateCategory">Create block category</a></li>
         <li><a href="#/blocks/adminCreateSubcategory">Create block subcategory</a></li>
@@ -32,9 +43,10 @@
         <li><a href="#/blocks/adminGetCategories">Show blocks categories</a></li>
         <li><a href="#/blocks/adminGetSubcategories">Show blocks subcategories</a></li>
         <br/><br/>
+        Admin
         <li><a href="#/users/adminGetAllUsers">Show users</a></li>
 
-        <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+        <li><a href="" ng-click="logout()">logout</a></li>
     </ul>
 </div>
 

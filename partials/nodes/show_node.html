@@ -1,20 +1,20 @@
-<form ng-controller="nodeController" ng-submit="createNode()">
+<form ng-controller = "nodeController" data-ng-init="getNode()">
 
     Name:
-    <input type="text" name="myNodeName" ng-model="myNodeName"/>
+    <input type="text" name="myNodeName" ng-model="entity.name"/>
 
     <br/><br/>
 
     Node Type:
     <select name="myNodeType" ng-model="myNodeType" data-ng-init="getNodeTypes()">
         <option value="">Select type</option>
-        <option ng-repeat="entity in entities" value="{{entity.id}}">{{entity.name}}</option>
+        <option ng-repeat="entity in entities" value="{{entity.id}}" >{{entity.name}}</option>
     </select>
 
     <br/><br/>
 
     Script:
-    <textarea name="nodeScript" ng-model="nodeScript"></textarea>
+    <textarea name="nodeScript" ng-model="entity.script.source"></textarea>
 
     <br/><br/>
 
@@ -23,4 +23,5 @@
     <br/><br/>
 
     <button type="submit" name="createNode" class="btn btn-lg btn-block btn-primary">Create node</button>
+
 </form>

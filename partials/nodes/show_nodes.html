@@ -1,0 +1,7 @@
+<div ng-controller="nodeController" data-ng-init="getNodes()">
+    <table ng-repeat="entity in entities">
+        <tr>
+            <td><a ng-id="{{entity.id}}" ng-href="#/nodes/getNode/{{entity.id}}">{{entity.name}}</a></td>
+            <td><button ng-click="deleteNode(entity.id)">Delete</button></td></tr>
+    </table>
+</div>

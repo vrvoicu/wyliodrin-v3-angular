@@ -1,100 +1,201 @@
 /**
  * Created by victor on 23.07.2015.
  */
-module.controller('nodeController', function($scope, $auth, nodeService){
-    $scope.createNode=function(){
-        nodeService.requestCreateNode($scope.nodeName);
+module.controller('nodeController', function($scope, $auth, nodeService, $routeParams){
+
+    $scope.createNodeType = function () {
+
+        var nodeTypeName = $scope.nodeTypeName;
+
+        var promise = nodeService.requestCreateNodeType(nodeTypeName);
+
+        promise
+            .then(
+                function(response){
+                },
+                function(error){
+
+                }
+            )
     }
-    $scope.deleteNode=function(){
-        nodeService.requestDeleteNode(1);
-        nodeService.requestDeleteNode(1);
+    
+    $scope.getNodeTypes = function () {
+
+        var promise = nodeService.requestGetNodeTypes();
+
+        promise.then(
+            function(response){
+                var data = jQuery.parseJSON(JSON.stringify(response.data));
+                $scope.entities = data;
+            },
+            function(error){
+
+            }
+        )
     }
 
-    $scope.setNodeScript= function () {
-        alert($scope.nodeId);
-        alert($scope.nodeScript);
-        //nodeService.requestSetNodeScript($scope.nodeId, $scope.nodeScript);
+    $scope.deleteNodeType = function (nodeTypeId) {
+
+        var promise = nodeService.requestDeleteNodeType(nodeTypeId);
+
+        promise.then(
+            function(response){
+                $scope.getNodeTypes();
+            },
+            function(error){
+
+            }
+        )
+    }
+
+    /*$scope.getAllNodes = function (){
+
+        var promise = nodeService.requestGetAllNodes();
+
+        promise.then(
+            function(response){
+                var data = jQuery.parseJSON(JSON.stringify(response.data));
+                $scope.entities = data;
+            },
+            function(error){
+
+            }
+        )
+    }*/
+
+    
+    $scope.createNode = function () {
+
+        var nodeName = $scope.myNodeName;
+        var nodeType = $scope.myNodeType;
+        var nodeScript = $scope.nodeScript;
+
+        var promise = nodeService.requestCreateNode(nodeName, nodeType, nodeScript);
+
+        promise.then(
+            function(response){
+
+            },
+            function(error){
+
+            }
+        )
+
+    }
+
+    $scope.getNode = function(){
+
+        var nodeId = $routeParams.entityId;
+
+        var promise = nodeService.requestGetNode(nodeId);
+
+        promise.then(
+            function(response){
+                var data = jQuery.parseJSON(JSON.stringify(response.data));
+                $scope.entity = data;
+            },
+            function(error){
+
+            }
+        )
+    }
+
+    $scope.getNodes = function () {
+
+        var promise = nodeService.requestGetNodes();
+
+        promise.then(
+            function(response){
+                var data = jQuery.parseJSON(JSON.stringify(response.data));
+                $scope.entities = data;
+            },
+            function(error){
+
+            }
+        )
+    }
+
+    $scope.deleteNode = function (nodeId) {
+
+        var promise = nodeService.requestDeleteNode(nodeId);
+
+        promise.then(
+            function(response){
+                $scope.getNodes();
+            },
+            function(error){
+
+            }
+        )
     }
 })
 
 module.service( 'nodeService', [ '$auth', '$http', function($auth, $http) {
 
-    var address='192.168.0.17';
-
     var service = {
-        nodes : [],
-        addNode: function ( node ) {
-            service.nodes.push( node );
-            $rootScope.$broadcast( 'nodes.update' );
-        },
-        requestCreateNode: function(nodeName){
-            alert($auth.isAuthenticated());
-            $http({
-                url: 'http://'+address+':8080/nodes/create',
-                method: 'POST',
-                data: { name: nodeName }
+        
+        /*requestGetAllNodes: function () {
+            return $http({
+                url: 'http://'+address+'/nodes/adminGetAllNodes',
+                method: 'GET',
             })
-                .then(function (response) {
-                    alert(JSON.stringify(response));
-                })
-                .catch(function (response) {
-                    if(response.data.status==403)
-                        alert(JSON.stringify(response));
-                });
-        },
-        requestDeleteNode: function(nodeId){
-            $http({
-                url: 'nodes/deleteNode',
-                nodeId: nodeId
+        },*/
+
+        requestDeleteNodeType: function(nodeTypeId){
+            return $http({
+                url: 'http://'+address+'/nodes/adminDeleteNodeType/'+nodeTypeId,
+                method: 'DELETE',
             })
-                .then(function(response){
-
-                })
-                .catch(function(response){
-
-                });
-        },
-        requestSetNodePrivacy: function(nodeId){
-            $http({
-                url: 'nodes/setNodePrivacy',
-                nodeId: nodeId
-            });
-        },
-        requestGetAllNodes: function(){
-
         },
 
-        requestSetNodeScript: function(nodeId, script){
-            $http({
-                url: 'http://'+address+':8080/nodes/script',
+        requestGetNodeTypes : function(){
+            return $http({
+                url: 'http://'+address+'/nodes/getNodeTypes',
+                method: 'GET',
+            })
+        },
+
+        requestCreateNodeType : function (nodeTypeName) {
+            return $http({
+                url: 'http://'+address+'/nodes/adminCreateNodeType',
                 method: 'POST',
-                data : {
-                    nodeId: nodeId,
-                    script: script
+                data: {
+                    nodeTypeName: nodeTypeName
                 }
-            });
-        },
-        requestGetUserDefinedNodes: function(){
-            $http({
-                url: 'nodes/all'
             })
-                .then(function(response){
-                    $.each(data, function () {
-                        var obj = data;
-                        console.log(obj);
-                        $scope.results.push(
-                            {
-                                "id": obj["obj_id"],
-                                "text": obj["text"]
-                            }
-                        );
+        },
 
+        requestCreateNode: function(nodeName, nodeType, nodeScript){
+            return $http({
+                url: 'http://'+address+'/nodes/createNode',
+                method: 'POST',
+                data: {
+                    nodeName: nodeName,
+                    nodeType: nodeType,
+                    nodeScript: nodeScript
+                }
+            })
+        },
+        
+        requestGetNode: function (nodeId) {
+            return $http({
+                url: 'http://'+address+'/nodes/getNode/'+nodeId,
+                method: 'GET',
+            })
+        },
 
-                    });
-                })
-                .catch(function(response){
+        requestGetNodes: function () {
+            return $http({
+                url: 'http://'+address+'/nodes/getNodes',
+                method: 'GET',
+            })
+        },
 
-                })
+        requestDeleteNode: function(nodeId){
+            return $http({
+                url: 'http://'+address+'/nodes/deleteNode/'+nodeId,
+                method: 'DELETE'
+            })
         }
     }
     return service;

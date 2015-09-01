@@ -27,15 +27,36 @@ var module = angular.module("wyliodrin_v3", ['satellizer', 'ngRoute'])
                 controller : 'userController'
             })
 
-            .when('/nodes/create', {
+
+            //nodes
+            //user
+            .when('/nodes/createNode', {
                 templateUrl: 'partials/nodes/create_node.html',
                 controller: 'nodeController',
             })
-            .when('/nodes/script', {
-                templateUrl: 'partials/nodes/set_node_script.html',
+            .when('/nodes/getNodes', {
+                templateUrl: 'partials/nodes/show_nodes.html',
+                controller: 'nodeController',
+            })
+            .when('/nodes/getNode/:entityId', {
+                templateUrl: 'partials/nodes/show_node.html',
+                controller: 'nodeController',
+            })
+            //admin
+            .when('/nodes/adminCreateNodeType', {
+                templateUrl: 'admin_partials/nodes/create_node_type.html',
+                controller: 'nodeController',
+            })
+            .when('/nodes/adminGetNodeTypes', {
+                templateUrl: 'admin_partials/nodes/show_node_types.html',
+                controller: 'nodeController',
+            })
+            .when('/nodes/adminGetNodes', {
+                templateUrl: 'admin_partials/nodes/show_nodes.html',
                 controller: 'nodeController',
             })
 
+            //projects
             .when('/projects/create', {
                 templateUrl: 'partials/projects/create_project.html',
                 controller: 'projectController',
