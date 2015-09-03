@@ -2,6 +2,7 @@
  * Created by victor on 20.07.2015.
  */
 var address='192.168.0.17:8080';
+address = '192.168.43.88:8080';
 
 var module = angular.module("wyliodrin_v3", ['satellizer', 'ngRoute'])
     .config(function($authProvider, $routeProvider) {
@@ -110,16 +111,23 @@ var module = angular.module("wyliodrin_v3", ['satellizer', 'ngRoute'])
                 controller: 'userController',
             })
 
+            //admin
+            .when('/users/adminCreateUser', {
+                templateUrl: 'admin_partials/users/create_user.html',
+                controller: 'userController',
+            })
             .when('/users/adminGetAllUsers', {
                 templateUrl: 'admin_partials/users/show_users.html',
                 controller: 'userController',
             })
-
             .when('/users/adminGetUser/:userId', {
                 templateUrl: 'admin_partials/users/show_user.html',
                 controller: 'userController',
             })
-
+            .when('/users/adminUpdateUser/:userId', {
+                templateUrl: 'admin_partials/users/update_user.html',
+                controller: 'userController',
+            })
             /*.when('/login', {
              templateUrl : 'partials/login.html',
              controller : 'loginCtrl'
@@ -150,7 +158,7 @@ var module = angular.module("wyliodrin_v3", ['satellizer', 'ngRoute'])
         });
 
         $authProvider.signupUrl = 'http://'+address+'/users/register';
-        $authProvider.loginUrl = 'http://'+address+'s/users/login';
+        $authProvider.loginUrl = 'http://'+address+'/users/login';
         $authProvider.tokenName = "authToken";
         $authProvider.authHeader = 'X-Auth-Token';
         $authProvider.authToken = '';

@@ -1,0 +1,26 @@
+<form ng-controller="userController" ng-submit="createUser()">
+
+    Name:
+    <input type="text" name="name" ng-model="name"/>
+    <br/><br/>
+
+    Username:
+    <input type="text" name="username" ng-model="username"/>
+    <br/><br/>
+
+    Email:
+    <input type="text" name="email" ng-model="email"/>
+    <br/><br/>
+
+    Password:
+    <input type="password" name="password" ng-model="password"/>
+    <br/><br/>
+
+    User type:
+    <select name="userType" ng-model="userType" data-ng-init="getUserTypes()">
+        <option value="">Select user type</option>
+        <option ng-repeat="attribute in attributes" value="{{attribute}}">{{attribute}}</option>
+    </select><br/><br/>
+
+    <button type="submit" name="createUser" class="btn btn-lg btn-block btn-primary">Create user</button>
+</form>

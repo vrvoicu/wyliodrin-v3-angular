@@ -7,6 +7,8 @@ var RESPONSE_PROJECT_INEXISTENT = 1040,
 
     USERNAME_TAKEN = 1003,
     EMAIL_REGISTERED = 1002,
+    EMAIL_FORMAT = 1005,
+    EMAIL_INEXISTENT = 1006,
 
     END = -100;
 
@@ -18,4 +20,8 @@ var handleErrorCallback = function (error) {
         alert("Username taken");
     else if(errorStatus == EMAIL_REGISTERED)
         alert("Email registered");
+    else if(errorStatus == EMAIL_FORMAT)
+        alert("Wrong email format");
+    else if(errorStatus == EMAIL_INEXISTENT)
+        alert("Wrong email or password");
 }
